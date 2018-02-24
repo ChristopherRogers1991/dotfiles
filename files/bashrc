@@ -10,18 +10,6 @@ esac
 
 export PATH=$PATH:/home/chris/.local/bin/
 
-if [ -f ~/.git-completion.bash ]; then
-    source ~/.git-completion.bash
-fi
-
-if [ -f ~/.git-prompt.sh ]; then
-  source ~/.git-prompt.sh
-fi
-
-export VISUAL=vim
-export EDITOR="$VISUAL"
-
-
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -127,6 +115,22 @@ if ! shopt -oq posix; then
     . /usr/share/bash-completion/bash_completion
   elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
+  else
+    GIT_COMPLETION_PATH=~/.git-completion.bash
+    if [ -n $GIT_COMPLETION_PATH ]; then
+        curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o $GIT_COMPLETION_PATH > /dev/null 2>1
+    fi
+    if [ -f $GIT_COMPLETION_PATH ]; then
+        source $GIT_COMPLETION_PATH
+    fi
+  fi
+
+  GIT_PROMPT_PATH=~/.git-prompt.sh
+  if [ -n $GIT_PROMPT_PATH ]; then
+      curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh -o $GIT_PROMPT_PATH > /dev/null 2>1
+  fi
+  if [ -f $GIT_PROMPT_PATH ]; then
+    source $GIT_PROMPT_PATH
   fi
 fi
 
@@ -149,4 +153,6 @@ restart_required() {
 
 PS1="\$(restart_required)\n${BGREEN}\u@\H${YELLOW}:${RED}\$PWD${YELLOW}\$(__git_ps1) ${BLUE}(\D{%T})${RED}\n${RED}$ ${NORMAL}"
 
+export VISUAL=vim
+export EDITOR="$VISUAL"
 export NVPACK_NDK_TOOL_VERSION="4.9"
