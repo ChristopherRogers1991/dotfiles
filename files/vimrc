@@ -65,6 +65,7 @@ set showmatch       " Show matching brackets.
 
 function Repl()
     :vsplit .scratch
-    :map <Leader>r <c-w>hgg"qyG<c-w>lggdG:read !q<CR>
+    :map <Leader>r <c-w>hgg"qyG<c-w>lggdG:read !q<CR>gg"qdd<c-w>h
+    :normal \r
 endfunction
 map <Leader>r :call Repl()<CR>
