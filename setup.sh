@@ -12,5 +12,6 @@ FILES_DIR="$BASE_DIR/files"
 cd $FILES_DIR
 
 for f in *; do
+    mv ~/.$f ~/.$f.back
     ln -sb $FILES_DIR/$f ~/.$f
 done
