@@ -1,4 +1,4 @@
-execute pathogen#infect()
+" execute pathogen#infect()
 
 filetype plugin on
 
@@ -108,3 +108,14 @@ map <c-j> :!python3 -m json.tool<CR>
 " wrap paragraphs with CTRL+w. Use `:set tw=<WIDTH>` to set wrap point, e.g.
 " `set tw=79`
 map <c-w> gq
+
+" Format a table, e.g.
+"
+" test text spaced unevenly
+" some words that are
+" not spaced even ly
+"
+" test  text    spaced  unevenly
+" some  words   that    are
+" not   spaced  even    ly
+map <c-t> :!column -t<CR>
