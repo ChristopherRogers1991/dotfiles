@@ -107,7 +107,7 @@ map <c-j> :!python3 -m json.tool<CR>
 
 " wrap paragraphs with CTRL+w. Use `:set tw=<WIDTH>` to set wrap point, e.g.
 " `set tw=79`
-map <c-w> gq
+" map <c-W> gq
 
 " Format a table, e.g.
 "
