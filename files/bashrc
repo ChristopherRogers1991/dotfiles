@@ -165,3 +165,10 @@ PS1="\$(restart_required)\n${BGREEN}\u@\H${YELLOW}:${RED}\$PWD${YELLOW}\$(__git_
 export VISUAL=vim
 export EDITOR="$VISUAL"
 export NVPACK_NDK_TOOL_VERSION="4.9"
+
+alias open='xdg-open'
+alias dng-converter='WINEPREFIX="$HOME/wine-prefixes/wine-dng" wine "$HOME/wine-prefixes/wine-dng/drive_c/Program Files/Adobe/Adobe DNG Converter/Adobe DNG Converter.exe"'
+alias gpu='__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia'
+alias python='python3'
+alias scratch='vim ~/Downloads/.scratch_`date +%F:%T`'
+
