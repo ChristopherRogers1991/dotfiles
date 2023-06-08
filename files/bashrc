@@ -170,5 +170,11 @@ alias open='xdg-open'
 alias dng-converter='WINEPREFIX="$HOME/wine-prefixes/wine-dng" wine "$HOME/wine-prefixes/wine-dng/drive_c/Program Files/Adobe/Adobe DNG Converter/Adobe DNG Converter.exe"'
 alias gpu='__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia'
 alias python='python3'
+alias docker_start='systemctl --user start docker.service'
 alias scratch='vim ~/Downloads/.scratch_`date +%F:%T`'
 
+
+# From https://docs.docker.com/engine/security/rootless/
+# See also: https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user
+export PATH=/usr/bin:$PATH
+export DOCKER_HOST=unix:///run/user/1000/docker.sock
