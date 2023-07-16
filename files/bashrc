@@ -171,7 +171,13 @@ alias dng-converter='WINEPREFIX="$HOME/wine-prefixes/wine-dng" wine "$HOME/wine-
 alias gpu='__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia'
 alias python='python3'
 alias docker_start='systemctl --user start docker.service'
+alias docker_stop='systemctl --user stop docker.service'
 alias scratch='vim ~/Downloads/.scratch_`date +%F:%T`'
+alias gw='./gradlew'
+
+if [[ -e `which nvim` ]]; then
+    alias vim=nvim
+fi
 
 
 # From https://docs.docker.com/engine/security/rootless/
