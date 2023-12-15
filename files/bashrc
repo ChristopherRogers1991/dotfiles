@@ -17,7 +17,9 @@ if command -v tmux &> /dev/null \
       exec tmux
 fi
 
-export PATH=$PATH:/home/chris/.local/bin/
+export PATH=$PATH:$HOME/.local/bin/
+export PATH=/usr/lib/cuda-11.2/bin:$PATH
+export LD_LIBRARY_PATH=/usr/lib/cuda-11.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -27,8 +29,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=-1
+HISTFILESIZE=10000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -165,6 +167,8 @@ PS1="\$(restart_required)\n${BGREEN}\u@\H${YELLOW}:${RED}\$PWD${YELLOW}\$(__git_
 export VISUAL=vim
 export EDITOR="$VISUAL"
 export NVPACK_NDK_TOOL_VERSION="4.9"
+export GITLAB_HOME=/srv/gitlab
+export ANDROID_HOME=/home/chris/Android/Sdk/
 
 alias open='xdg-open'
 alias dng-converter='WINEPREFIX="$HOME/wine-prefixes/wine-dng" wine "$HOME/wine-prefixes/wine-dng/drive_c/Program Files/Adobe/Adobe DNG Converter/Adobe DNG Converter.exe"'
@@ -175,12 +179,17 @@ alias docker_stop='systemctl --user stop docker.service'
 alias scratch='vim ~/Downloads/.scratch_`date +%F:%T`'
 alias gw='./gradlew'
 
-if [[ -e `which nvim` ]]; then
-    alias vim=nvim
-fi
+# See https://askubuntu.com/a/978159/94184
+alias touchpad_restart='sudo rmmod hid_multitouch && sudo modprobe hid_multitouch'
+
+# if [[ -e `which nvim` ]]; then
+#     alias vim=nvim
+# fi
 
 
 # From https://docs.docker.com/engine/security/rootless/
 # See also: https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user
 export PATH=/usr/bin:$PATH
 export DOCKER_HOST=unix:///run/user/1000/docker.sock
+
+. "$HOME/.cargo/env"
