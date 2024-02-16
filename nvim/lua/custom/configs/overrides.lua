@@ -2,11 +2,13 @@ local M = {}
 
 M.treesitter = {
   ensure_installed = {
+    "bash",
     "vim",
     "lua",
     "html",
     "css",
     "javascript",
+    "java",
     "typescript",
     "tsx",
     "c",
@@ -40,7 +42,14 @@ M.mason = {
     "clang-format",
 
     -- python
-    "python-lsp-server"
+    "python-lsp-server",
+    "debugpy",
+
+    -- Java
+    "jdtls",
+
+    -- Bash
+    "bash-language-server",
   },
 }
 
@@ -60,6 +69,8 @@ M.nvimtree = {
   },
 }
 
+M.trouble = {}
+
 local cmp = require("cmp")
 
 M.cmp = {
@@ -70,5 +81,9 @@ M.cmp = {
       end,
     },
 }
+
+M.nvimdap = {}
+
+M.nvimdappython = {}
 
 return M

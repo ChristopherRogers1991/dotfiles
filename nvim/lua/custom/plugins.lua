@@ -43,6 +43,12 @@ local plugins = {
     opts = overrides.cmp,
   },
 
+  {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = overrides.trouble,
+  },
+
   -- Install a plugin
   {
     "max397574/better-escape.nvim",
@@ -50,6 +56,44 @@ local plugins = {
     config = function()
       require("better_escape").setup()
     end,
+  },
+  {
+    "mfussenegger/nvim-dap",
+    -- See https://stackoverflow.com/a/77575033
+    config = function (_, opts) end,
+    opts = overrides.nvimdap,
+  },
+  {
+    -- Must also install python3-debugpy via apt, or in venv
+    "mfussenegger/nvim-dap-python",
+    ft = "python",
+    dependencies = {
+      "mfussenegger/nvim-dap",
+      "rcarriga/nvim-dap-ui",
+    },
+    config = function (_, opts)
+        local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
+        require('dap-python').setup(path)
+    end,
+    opts = overrides.nvimdappython,
+  },
+  {
+    "rcarriga/nvim-dap-ui",
+    dependencies = "mfussenegger/nvim-dap",
+    config = function()
+      local dap = require("dap")
+      local dapui = require("dapui")
+      dapui.setup()
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open()
+      end
+      -- dap.listeners.before.event_terminated["dapui_config"] = function()
+      --   dapui.close()
+      -- end
+      -- dap.listeners.before.event_exited["dapui_config"] = function()
+      --   dapui.close()
+      -- end
+    end
   },
 
   -- To make a plugin not be loaded
