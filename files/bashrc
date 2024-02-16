@@ -193,3 +193,19 @@ export PATH=/usr/bin:$PATH
 export DOCKER_HOST=unix:///run/user/1000/docker.sock
 
 . "$HOME/.cargo/env"
+
+nvimdiff() {
+    if [[ -z $1 ]]; then
+        nvim -d <(echo) <(echo)
+    else
+        nvim -d $1 $2
+    fi
+}
+
+vimdiff() {
+    if [[ -z $1 ]]; then
+        /usr/bin/vimdiff <(echo) <(echo)
+    else
+        /usr/bin/vimdiff $1 $2
+    fi
+}
