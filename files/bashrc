@@ -162,7 +162,7 @@ restart_required() {
     fi
 }
 
-PS1="\$(restart_required)\n${BGREEN}\u@\H${YELLOW}:${RED}\$PWD${YELLOW}\$(__git_ps1) ${BLUE}(\D{%T})${RED}\n${RED}$ ${NORMAL}"
+PS1="\$(update_jobs_count)\$(restart_required)\n${BGREEN}\u@\H${YELLOW}:${RED}\$PWD${YELLOW}\$(__git_ps1) ${BLUE}(\D{%T})${RED}\n${RED}$ ${NORMAL}"
 
 export VISUAL=vim
 export EDITOR="$VISUAL"
@@ -209,3 +209,25 @@ vimdiff() {
         /usr/bin/vimdiff $1 $2
     fi
 }
+
+# Used by tmux for job count in status line per pane
+if [[ -n $TMUX ]]; then
+    TMUX_SOCKET=`echo $TMUX | cut -f 1 -d ','`
+    TMUX_PID=`echo $TMUX | cut -f 2 -d ','`
+    JOBS_FILE="$TMUX_SOCKET"_"$TMUX_PID"_"$TMUX_PANE".jobs
+fi
+
+update_jobs_count() {
+    count=`jobs | wc -l`
+    if [[ $count -gt 0 ]]; then
+        echo -n "($count)" > $JOBS_FILE
+    else
+        echo -n "" > $JOBS_FILE
+    fi
+}
+
+cleanup() {
+    rm $JOBS_FILE
+}
+
+trap cleanup EXIT
